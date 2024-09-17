@@ -13,7 +13,7 @@ exports.createOne = (Model) =>
 
 exports.getAll = (Model) =>
     catchAsync(async (req, res, next) => {
-        const features = new ApiFeatures(Model.find(filter), req.query)
+        const features = new ApiFeatures(Model.find(), req.query)
             .filter()
             .sort()
             .limitFields()
@@ -23,6 +23,17 @@ exports.getAll = (Model) =>
             status: "success",
             results: doc.length,
             // total: docCount,
+            data: {
+                data: doc,
+            },
+        });
+    });
+
+exports.getOne = (Model) =>
+    catchAsync(async (req, res, next) => {
+        const doc = await Model.findById(req.params.id);
+        res.status(200).json({
+            status: "success",
             data: {
                 data: doc,
             },
