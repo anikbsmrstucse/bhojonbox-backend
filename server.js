@@ -20,6 +20,15 @@ mongoose.connect(DB, { autoIndex: true }).then((con) => {
     console.log(`Database connection established...`);
 });
 
+app.get("/", (req, res) => {
+    res.status(200).json({
+        status: "success",
+        message: "Welcome to the BhojonBox API",
+        version: "1.0.0",
+        documentation: "https://github.com/BhojonBox/API-Documentation",
+    });
+});
+
 // start the server
 const server = app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
