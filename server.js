@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
-dotenv.config({ path: "./config.env" });
+// dotenv.config({ path: "./config.env" });
+dotenv.config();
 process.on("uncaughtException", function (err) {
     console.log("Uncaught Exception!Shutting down...");
     console.log(err.name, err.message, err);
