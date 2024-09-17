@@ -29,8 +29,8 @@ const recipeSchema = new mongoose.Schema(
         },
         rating: {
             type: Number,
-            min: [1, "Rating must be at least 1"],
-            max: [5, "Rating must be at most 5"],
+            min: [1, "A recipe must have at least 1 rating"],
+            max: [5, "A recipe must have at most 5 rating"],
             default: 0,
         },
         ingredients: [
@@ -62,6 +62,15 @@ const recipeSchema = new mongoose.Schema(
         toObject: { virtuals: true },
     }
 );
+
+recipeSchema.post("findOne", function (doc, next) {
+    if (doc) {
+        doc.totalView++;
+        doc.save();
+    }
+    console.log(doc);
+    next();
+});
 
 const Recipe = mongoose.model("Recipe", recipeSchema);
 

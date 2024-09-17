@@ -2,8 +2,11 @@ const express = require("express");
 const morgan = require("morgan");
 const globalErrorHandler = require("./utils/errorControl");
 const recipeRouter = require("./routes/recipeRoutes");
+const AppError = require("./utils/appError");
 const app = express();
 
+// body parser
+app.use(express.json({ limit: "10kb" }));
 // logging middleware for development environment
 if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
