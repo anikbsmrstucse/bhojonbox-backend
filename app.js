@@ -11,7 +11,12 @@ app.use(express.json({ limit: "10kb" }));
 if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
 }
-
+app.get("/", (req, res) => {
+    res.status(200).json({
+        status: "success",
+        message: "Welcome to BhojonBox API",
+    });
+});
 app.use("/api/v1/recipes", recipeRouter);
 
 app.all("*", (req, res, next) => {
